@@ -20,6 +20,7 @@ async function createConnection() {
 }
 export const client = await createConnection()
 
+// Method to display all the endpoints available.
 app.get("/", (request, response) => {
     const data = ` Available endpoints are 
      [ /students --- to get all students ]
@@ -33,28 +34,33 @@ app.get("/", (request, response) => {
     response.send(data)
 })
 
+//Method to display all the students available.
 app.get("/students", async (request, response) => {
     const result = await client.db("assign-mentor").collection("students").find({}).toArray()
     response.send(result)
 })
 
+// Method to display all the mentors available.
 app.get("/mentors", async (request, response) => {
     const result = await client.db("assign-mentor").collection("mentors").find({}).toArray()
     response.send(result)
 })
 
+// Method to add a new student to the students collection
 app.post("/create-student", async (request, response) => {
     const data = request.body
     const result = await client.db("assign-mentor").collection("students").insertOne(data)
     response.send(result)
 })
 
+// Method to add a new mentor to the mentors collection
 app.post("/create-mentor", async (request, response) => {
     const data = request.body
     const result = await client.db("assign-mentor").collection("mentors").insertOne(data)
     response.send(result)
 })
 
+// Method to assign students to the given mentor.
 app.put("/assign-student-to-mentor/:id", async (request, response) => {
     const { id } = request.params
     const data = request.body
@@ -75,6 +81,7 @@ app.put("/assign-student-to-mentor/:id", async (request, response) => {
     response.send(mentor)
 })
 
+// Displays all the students under the given mentor
 app.get("/all-students-under-mentor/:id", async (request, response) => {
     const { id } = request.params
     const mentor = await client.db("assign-mentor").collection("mentors").findOne({ mentor_id: id })
@@ -91,6 +98,7 @@ app.get("/all-students-under-mentor/:id", async (request, response) => {
     response.send(result)
 })
 
+// Method to Update or Assign mentor to the given student.
 app.put("/assign-mentor-to-student/:id", async (request, response) => {
     const { id } = request.params
     const data = request.body
