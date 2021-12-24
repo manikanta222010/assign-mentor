@@ -21,14 +21,14 @@ async function createConnection() {
 export const client = await createConnection()
 
 app.get("/", (request, response) => {
-    const data = ` Available endpoints are \n
-     /students --- to get all students \n
-     /mentors --- to get all mentors \n
-     /create-student --- to add a new user to the database \n
-     /create-mentor --- to add a new mentor to the database \n
-     /assign-student-to-mentor/:id --- to assign students to a particular mentor \n
-     /all-students-under-mentor/:id --- display all the students under particular mentor \n
-     /assign-mentor-to-student/:id --- to assign/update mentor to a particular student
+    const data = ` Available endpoints are 
+     [ /students --- to get all students ]
+     [ /mentors --- to get all mentors ]
+     [ /create-student --- to add a new user to the database ]
+     [ /create-mentor --- to add a new mentor to the database ]
+     [ /assign-student-to-mentor/:id --- to assign students to a particular mentor ]
+     [ /all-students-under-mentor/:id --- display all the students under particular mentor ]
+     [ /assign-mentor-to-student/:id --- to assign/update mentor to a particular student ]
     `
     response.send(data)
 })
